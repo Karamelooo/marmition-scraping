@@ -96,7 +96,10 @@ def main():
         recette_list = send_marmiton_query("-".join(filter_list[0]["ingredients"]),filter_list[3]["nbr_prix"],filter_list[2]["difficulte"],filter_list[1]["temps_passe"])
 
         # on recupère la list de recettes trouvées
-        print(recette_list)
+        i = 1
+        for recette in recette_list:
+            print(f"-- RECETTE N°{i} --\n{recette['recette_name']} avec une note de {recette['recette_note']}\nVoir la recette :{recette['recette_link']}\n")
+            i+=1
 
         
     except Exception as e:
