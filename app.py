@@ -98,7 +98,7 @@ def main():
         # on recupère la list de recettes trouvées
         i = 1
         for recette in recette_list:
-            print(f"-- RECETTE N°{i} --\n{recette['recette_name']} avec une note de {recette['recette_note']}\nVoir la recette :{recette['recette_link']}\n")
+            print(f"-- RECETTE N°{i} --\n{recette['recette_name']} avec une note de {recette['recette_note']}\nVoir la recette : {recette['recette_link']}\n")
             i+=1
 
         
