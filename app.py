@@ -10,7 +10,7 @@ def nbr_ingredient_def():
             print('Veuillez écrire un nombre entier !')
 
     if nbr_ingredient == 0:
-        print('Revenez une fois avoir acheter de quoi cuisiner !')
+        print('Revenez une fois avoir acheté de quoi cuisiner !')
         exit()
 
     return nbr_ingredient
@@ -23,7 +23,7 @@ def temps_passe_recette():
             if temps_passe > 0:
                 temps_passe_is_setup = True
             else:
-                print('Aucune recette ne peut duree 0 minute...')
+                print('Aucune recette ne peut durer 0 minute...')
 
         except ValueError:
             print('Veuillez écrire un nombre entier !')
@@ -38,7 +38,7 @@ def prix_recette():
             if prix > 0:
                 prix_is_setup = True
             else:
-                print('Aucune recette ne peut être gratuite..')
+                print('Aucune recette ne peut être gratuite...')
 
         except ValueError:
             print('Veuillez écrire un nombre entier !')
@@ -60,10 +60,10 @@ def difficulte_recette():
             print('')
             print('''Très Facile (1)\nFacile (2)\nMoyen (3)\nDifficile (4)''')
             print('')
-            difficulte = int(input('Indiquez une difficultée : '))
+            difficulte = int(input('Indiquez une difficulté : '))
             difficulte_is_setup = True
         except ValueError or difficulte != 1 or difficulte != 2 or difficulte != 3 or difficulte != 4:
-            print('Veuillez choisir une difficultée valide !')
+            print('Veuillez choisir une difficulté valide !')
     
     return difficulte
 
@@ -100,7 +100,7 @@ def main():
 
         
     except Exception as e:
-        print("Une erreur c'est produite ! ",e)
+        print("Une erreur s'est produite ! ",e)
 
 
 
