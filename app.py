@@ -76,8 +76,14 @@ def main():
         ingredient_list = []
         nbr_ingredient = nbr_ingredient_def()
         for i in range(nbr_ingredient):
-                ingredient_name = input(f"Entrez l'ingrédient numéro {i + 1}: ")
-                ingredient_list.append(ingredient_name)
+                ingredient_is_setup = False
+                while ingredient_is_setup is False:
+                    ingredient_name = input(f"Entrez l'ingrédient numéro {i + 1}: ")
+                    if ingredient_name != "" and ingredient_name != " ":
+                        ingredient_list.append(ingredient_name)
+                        ingredient_is_setup = True
+                    else:
+                        print('Veuillez renseigner un ingrédient !')
 
         filter_list.append({"ingredients": ingredient_list})
 
