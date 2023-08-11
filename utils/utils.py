@@ -91,6 +91,7 @@ def send_marmiton_query(ingredients,prix,difficulte,temps_passe_cuisine):
         except Exception as e:
             print('Une erreur est survenue ! ',e)
     
+    
     print(f'{recette_found} recette(s) trouvée(s)')
     return recette_list
 
