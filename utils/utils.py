@@ -70,10 +70,13 @@ def send_marmiton_query(ingredients,prix,difficulte,temps_passe_cuisine):
                             recette_note = f'{recette_note.text.strip()} basé sur {recette_nbr_avis}avis'
                         else:
                             recette_note = recette_note.text.strip()
-
-                    recette_image = recette.find('img')
+                    recette_image = recette.find('img', {'class' : 'lazyload'})
                     if recette_image is not None:
-                        recette_image = recette_image["src"]
+                        recette_image = recette_image["data-src"]
+                    else:
+                        recette_image = recette.find('img')
+                        if recette_image is not None:
+                            recette_image = recette_image["src"]
 
                     recette_obj = {
                         "recette_link":recette_link,

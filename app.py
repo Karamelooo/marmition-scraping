@@ -107,7 +107,6 @@ def main():
         
         recette_list = send_marmiton_query("-".join(filter_list[0]["ingredients"]),filter_list[3]["nbr_prix"],filter_list[2]["difficulte"],filter_list[1]["temps_passe"])
 
-
         recette_displayed = False
         scroll = False
 
@@ -151,7 +150,7 @@ def main():
             # génération de l'image
             ctx.fill((235, 235, 235))
             x,y = (0,0)
-            w_rect = 100
+            w_rect = 60
             h_rect = 40
             rect_color = (100,100,100)
             border_color = (0,0,0)
@@ -175,7 +174,7 @@ def main():
                     response = urlopen(recette['recette_image']).read()
                     image = BytesIO(response)
                     image = pygame.image.load(image)
-                    image = pygame.transform.scale(image, (100, 40))
+                    image = pygame.transform.scale(image, (60, 40))
                     note = recette['recette_note'].split('/')
                     note = math.floor(float(note[0]))
                     stars = ""
@@ -199,14 +198,14 @@ Cliquez pour accéder à la recette
                     # génération du texte
                     y+=5
                     surface_texte = font.render(title, True, txt_color)
-                    ctx.blit(surface_texte, (105, y))
+                    ctx.blit(surface_texte, (70, y))
                     surface_texte = font_stars.render(stars, True, stars_color)
                     x_stars = ctx.blit(surface_texte, (220, y)).right
                     surface_texte = font_stars.render(blank_stars, True, blank_stars_color)
                     ctx.blit(surface_texte, (x_stars, y))
                     for ligne in texte.splitlines():
                         surface_texte = font.render(ligne, True, txt_color)
-                        ctx.blit(surface_texte, (105, y))
+                        ctx.blit(surface_texte, (70, y))
                         pygame.display.flip()
                         y+=10
                 y+=10
