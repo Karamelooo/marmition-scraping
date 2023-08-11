@@ -140,19 +140,20 @@ def main():
         
         recette_list = send_marmiton_query("-".join(filter_list[0]["ingredients"]),filter_list[3]["nbr_prix"],filter_list[2]["difficulte"],filter_list[1]["temps_passe"])
 
-        recette_displayed = False
-        scroll = False
-
         # Utilisation de la fonction pour ajouter une recette en favori
         ask_to_add_to_fav = threading.Thread(target=add_to_favorites, args=(recette_list,))
         ask_to_add_to_fav.start()
         # initiation pygame pour afficher les résultats
         pygame.init()
-
-        ctx_width = 800
-        ctx_height = 600
+        recette_displayed = False
+        scroll = False
+        running = True
+        links = []
+        pos_y = []
         nb = 0
         step = 4
+        ctx_width = 800
+        ctx_height = 600
         total = len(recette_list)
         ctx = pygame.display.set_mode((ctx_width, ctx_height))
         pygame.display.set_caption(f"{total} recettes trouvées")
@@ -160,9 +161,6 @@ def main():
         wingdings = pygame.font.match_font('wingdings2')
         font = pygame.font.Font(verdana, 11)
         font_stars = pygame.font.Font(wingdings, 17)
-        running = True
-        links = []
-        pos_y = []
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -174,11 +172,9 @@ def main():
                     elif event.button == 5 and nb < total:
                         nb += step
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    print(event.pos) #coordonnées du clique
                     n_link = 0
                     for p in pos_y:
                         if event.pos[1] >= p and event.pos[1] < p+45:
-                            print(p)
                             webbrowser.open(links[n_link])
                             break
                         n_link+=1

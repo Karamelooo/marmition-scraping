@@ -105,11 +105,11 @@ def add_to_fav_marmiton(s,headers,fav_id):
             print('Recette ajoutée au favoris avec succès!')
             return True
         else:
-            print(f'Erreur de connection ({response.text})')
+            print(f'Erreur de connexion ({response.text})')
             return False
         
     except Exception as e:
-        print("Erreur de connection ",e)
+        print("Erreur de connexion ",e)
         return False
 
 
@@ -146,11 +146,11 @@ def login_to_marmiton(email,password):
             print('Compte connecté avec succès !')
             return {"session":s,"headers":headers}
         else:
-            print(f'Erreur de connection ({response.text})')
+            print(f'Erreur de connexion ({response.text})')
             return False
         
     except Exception as e:
-        print("Erreur de connection ",e)
+        print("Erreur de connexion ",e)
         return False
 
     
