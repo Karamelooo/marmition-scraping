@@ -1,8 +1,11 @@
-from utils.utils import send_marmiton_query
-import pygame
+from utils.utils import add_to_fav_marmiton, send_marmiton_query
+from utils.utils import login_to_marmiton
+from urllib.request import urlopen
 from pygame import *
 from io import BytesIO
-from urllib.request import urlopen
+
+import threading
+import pygame
 import webbrowser
 import math
 
@@ -73,6 +76,36 @@ def difficulte_recette():
     
     return difficulte
 
+def add_to_favorites(recette_list):
+    try:
+        user_input = input(f"Voulez-vous ajouter une recette en favori ? (oui/non): ")
+        if user_input == "oui":
+            print(f"Connectez-vous à votre compte Marmiton :")
+            print('')
+            email = str(input('Entrer votre email ou votre nom d\'utilisateur : '))
+            password = str(input('Entrer votre mot de passe : '))
+            login_response = login_to_marmiton(email, password)
+            if login_response is not False:
+                id_selected = int(input('Choissez le numéro d\'une recette à ajouter aux favoris : '))
+                if 0 <= id_selected < len(recette_list):
+                    recette_to_retrieve = recette_list[id_selected]
+                    recette_link = recette_to_retrieve['recette_link']
+                    # Trouver l'index du dernier "_" dans l'URL
+                    last_underscore_index = recette_link.rfind("_")
+                    if last_underscore_index != -1:
+                        fav_id = recette_link[last_underscore_index + 1 : - 5] 
+                        print(f'Ajout de la recette {recette_link} en cours...')
+                        add_to_fav_marmiton(login_response["session"],login_response["headers"], fav_id)
+                    else:
+                        print('Erreur au moment de trouvé l\'id dans l\'url')
+
+        elif user_input == "non":
+            print("Aucune idée n'a été ajoutée en favori.")
+        else:
+            print("Réponse non reconnue. Veuillez répondre avec 'oui' ou 'non'.")
+
+    except KeyboardInterrupt:
+        print("Opération annulée par l'utilisateur.")
 
 def main():
     try:
@@ -107,10 +140,12 @@ def main():
         
         recette_list = send_marmiton_query("-".join(filter_list[0]["ingredients"]),filter_list[3]["nbr_prix"],filter_list[2]["difficulte"],filter_list[1]["temps_passe"])
 
-
         recette_displayed = False
         scroll = False
 
+        # Utilisation de la fonction pour ajouter une recette en favori
+        ask_to_add_to_fav = threading.Thread(target=add_to_favorites, args=(recette_list,))
+        ask_to_add_to_fav.start()
         # initiation pygame pour afficher les résultats
         pygame.init()
 
